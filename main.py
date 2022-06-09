@@ -1,5 +1,12 @@
 from fastapi import FastAPI, status, Response
 from typing import Optional
+from pydantic import BaseModel
+
+class Profile(BaseModel):
+    name:str
+    email:str
+    age:int
+    info:str | None = None    
 
 app = FastAPI()
 
@@ -82,6 +89,6 @@ async def profile(response:Response, userid:int = None, commentid:int = None):
           summary = "Add a user",
           description = "Endpoint that creates and adds a user",
           response_description = "A JSON dict with a successfull message")
-async def adduser(response:Response):
+async def adduser(response:Response, profile:Profile):
     response.status_code = status.HTTP_201_CREATED
-    return {"message": f"User added"}
+    return profile
