@@ -13,6 +13,9 @@ A basic course of FastAPI topics and knowledges
         - response_description
         - status.HTTP_200_OK
     - Ordering Routes or paths: The order is so much important
+    - Query parameters by default; You should remember the typing is so important
+    - Query parameters and path parameters can be in the same function
+    - None make more sense like zero or empty value
 
 ## Generate requirements.txt
     - pip freeze >> requirements.txt

@@ -55,6 +55,24 @@ def admin(response:Response):
          summary = "Return username info", 
          description = "This endpoint retrieve the username contact info", 
          response_description = "A JSON dict with contact info of a specific username")
-def admin(username:str, response:Response):
+def profile(username:str, response:Response):
     response.status_code = status.HTTP_200_OK
     return {"message": f"username {username}"}
+
+@app.get("/products",
+         tags = ["id", "price"],
+         summary = "Retrieve id and price of a product",
+         description = "Return the id and price",
+         response_description = "A JSON dict with product price and id")
+def products(response:Response, id:int = None, price:float = None):
+    response.status_code = status.HTTP_200_OK
+    return {"message": f"Product with an id: {id} and price {price}"}
+
+@app.get("/profile/{userid}/comments",
+         tags = ["userid", "commentid"],
+         summary = "Return info",
+         description = "Return a list of comments",
+         response_description = "A JSON dict with the info")
+async def profile(response:Response, userid:int = None, commentid:int = None):
+    response.status_code = status.HTTP_200_OK
+    return {"message": f"Profile page for user with user id {userid} and comment with {commentid}"}
