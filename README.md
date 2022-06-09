@@ -17,6 +17,9 @@ A basic course of FastAPI topics and knowledges
     - Query parameters and path parameters can be in the same function
     - None make more sense like zero or empty value
 
+## Request Body and Pydantic
+    - POST method
+
 ## Generate requirements.txt
     - pip freeze >> requirements.txt
 

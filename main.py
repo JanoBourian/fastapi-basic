@@ -76,3 +76,12 @@ def products(response:Response, id:int = None, price:float = None):
 async def profile(response:Response, userid:int = None, commentid:int = None):
     response.status_code = status.HTTP_200_OK
     return {"message": f"Profile page for user with user id {userid} and comment with {commentid}"}
+
+@app.post("/adduser",
+          tags = ["user"],
+          summary = "Add a user",
+          description = "Endpoint that creates and adds a user",
+          response_description = "A JSON dict with a successfull message")
+async def adduser(response:Response):
+    response.status_code = status.HTTP_201_CREATED
+    return {"message": f"User added"}
