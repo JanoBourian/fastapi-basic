@@ -8,6 +8,12 @@ class Profile(BaseModel):
     age:int
     info:str | None = None    
 
+class Product(BaseModel):
+    name: str
+    price: float
+    discount_percentage: float 
+    discounted_price: float = 0.0
+    
 app = FastAPI()
 
 @app.get("/", 
@@ -85,10 +91,20 @@ async def profile(response:Response, userid:int = None, commentid:int = None):
     return {"message": f"Profile page for user with user id {userid} and comment with {commentid}"}
 
 @app.post("/adduser",
-          tags = ["user"],
+          tags = ["user", "add"],
           summary = "Add a user",
           description = "Endpoint that creates and adds a user",
           response_description = "A JSON dict with a successfull message")
 async def adduser(response:Response, profile:Profile):
     response.status_code = status.HTTP_201_CREATED
     return profile
+
+@app.post("/addproduct", 
+          tags = ["product", "add"],
+          summary = "Add a product info",
+          description = "Add name, price and discount with its rules",
+          response_description = "Return a new info about the created product")
+async def addproduct(response:Response, product:Product):
+    product.discounted_price = round(product.price*(1 - product.discount_percentage), 3)
+    response.status_code = status.HTTP_201_CREATED
+    return product
