@@ -99,12 +99,12 @@ async def adduser(response:Response, profile:Profile):
     response.status_code = status.HTTP_201_CREATED
     return profile
 
-@app.post("/addproduct", 
-          tags = ["product", "add"],
+@app.post("/addproduct/{product_id}", 
+          tags = ["product", "add", "product_id", "store_id", "category"],
           summary = "Add a product info",
           description = "Add name, price and discount with its rules",
           response_description = "Return a new info about the created product")
-async def addproduct(response:Response, product:Product):
+async def addproduct(response:Response, product:Product, product_id:int, store_id:int = None, category:str = None):
     product.discounted_price = round(product.price*(1 - product.discount_percentage), 3)
     response.status_code = status.HTTP_201_CREATED
-    return product
+    return {"product_id": product_id, "product": product, "store_id": store_id, "category": category}
