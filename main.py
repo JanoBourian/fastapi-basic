@@ -1,6 +1,6 @@
 from fastapi import FastAPI, status, Response
 from typing import Optional
-from pydantic import BaseModel
+from pydantic import BaseModel, Field 
 
 class Profile(BaseModel):
     name:str
@@ -10,10 +10,14 @@ class Profile(BaseModel):
 
 class Product(BaseModel):
     name: str
-    price: float
+    price: float = Field(title = "Price of the item", description = "This would be the price of the item being added", gt = 0)
     discount_percentage: float 
     discounted_price: float = 0.0
-    
+
+class User(BaseModel):
+    name: str
+    email: str
+
 app = FastAPI()
 
 @app.get("/", 
@@ -108,3 +112,12 @@ async def addproduct(response:Response, product:Product, product_id:int, store_i
     product.discounted_price = round(product.price*(1 - product.discount_percentage), 3)
     response.status_code = status.HTTP_201_CREATED
     return {"product_id": product_id, "product": product, "store_id": store_id, "category": category}
+
+@app.post("/purchase",
+          tags = ["product", "purchase", "user"],
+          summary = "Add a purchase by user",
+          description = "Add a purchase for certain user",
+          response_description = "Return dummy info")
+async def purchase(response:Response, user:User, product:Product):
+    response.status_code = status.HTTP_201_CREATED
+    return {"user": user, "product": product}

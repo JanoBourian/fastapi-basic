@@ -20,6 +20,8 @@ A basic course of FastAPI topics and knowledges
 ## Request Body and Pydantic
     - POST method
     - Request Model: pydantic
+    - Past one or more Model
+    - Add metadata info
 
 ## Generate requirements.txt
     - pip freeze >> requirements.txt
