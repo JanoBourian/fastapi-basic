@@ -22,6 +22,11 @@ A basic course of FastAPI topics and knowledges
     - Request Model: pydantic
     - Past one or more Model
     - Add metadata info
+    - Nesting Python Datatypes in a Models
+    - Provide example data as a class inside the pydantic Model
+    - Provide exampla data using fields
+    - Time data types
+    - Forms 
 
 ## Generate requirements.txt
     - pip freeze >> requirements.txt
