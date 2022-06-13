@@ -1,6 +1,17 @@
-from fastapi import FastAPI, status, Response
+from fastapi import FastAPI, status, Response, Form
 from typing import Optional, List, Set
 from pydantic import BaseModel, Field, HttpUrl
+from uuid import UUID
+from datetime import date, datetime, time, timedelta
+
+
+class Event(BaseModel):
+    event_id: UUID
+    start_date: date
+    start_time: datetime
+    end_time: datetime
+    repeat_time: time
+    execute_after: timedelta
 
 
 class Profile(BaseModel):
@@ -62,6 +73,18 @@ class User(BaseModel):
 
 
 app = FastAPI()
+
+
+@app.post(
+    "/login",
+    tags=["login", "user"],
+    summary="Login with form",
+    description="Endpoint to recive username and password",
+    response_description="Return exit success",
+)
+def login(response: Response, username: str = Form(...), password: str = Form(...)):
+    response.status_code = status.HTTP_201_CREATED
+    return {"username": username, "password": password}
 
 
 @app.get(
@@ -224,3 +247,15 @@ async def purchase(response: Response, user: User, product: Product):
 async def addoffer(response: Response, offer: Offer):
     response.status_code = status.HTTP_201_CREATED
     return offer
+
+
+@app.post(
+    "/addevent",
+    tags=["event"],
+    summary="Add event",
+    description="Enpoint that add event",
+    response_description="Return a success message",
+)
+async def addevent(response: Response, event: Event):
+    response.status_code = status.HTTP_201_CREATED
+    return event

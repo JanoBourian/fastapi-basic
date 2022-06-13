@@ -34,3 +34,7 @@ A basic course of FastAPI topics and knowledges
 ## Requirements.txt
     - pip install fastapi
     - pip install uvicorn
+    - pip install requests
+    - pip install pytest
+    - pip install black
+    - pip install python-multipart
