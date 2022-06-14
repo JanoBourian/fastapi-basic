@@ -28,6 +28,14 @@ A basic course of FastAPI topics and knowledges
     - Time data types
     - Forms 
 
+## Connecting to the database
+    - SQLAlchemy
+    - SQLite
+    - Creating a project 
+    - Creating a connection
+    - Creating a model
+    - Using Table Plus
+
 ## Generate requirements.txt
     - pip freeze >> requirements.txt
 
@@ -38,3 +46,4 @@ A basic course of FastAPI topics and knowledges
     - pip install pytest
     - pip install black
     - pip install python-multipart
+    - pip install sqlalchemy
