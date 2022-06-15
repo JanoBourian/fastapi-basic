@@ -32,7 +32,7 @@ A basic course of FastAPI topics and knowledges
     - SQLAlchemy
     - SQLite
     - Creating a project 
-    - Creating a connection
+    - Creating a connection : Check this link or advanced setup https://fastapi.tiangolo.com/tutorial/sql-databases/
     - Creating a model
     - Using Table Plus
 
