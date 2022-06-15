@@ -2,3 +2,4 @@ fastapi-basic/
 __pycache__/
 .pytest_cache/
 *.db
+config.py

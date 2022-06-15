@@ -44,7 +44,16 @@ A basic course of FastAPI topics and knowledges
     - Response Model
     - HTTP status code
     - Raising Exceptions
-    
+
+### Commands to manipulate databases
+    - db.query().filter().first()
+    - db.add()
+    - db.commit()
+    - db.refresh()
+    - db.delete(synchronize_session = False)
+    - .first()
+    - .update()
+
 ## Generate requirements.txt
     - pip freeze >> requirements.txt
 

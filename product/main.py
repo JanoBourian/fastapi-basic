@@ -4,13 +4,9 @@ from sqlalchemy.orm import Session
 from .schemas import Product
 from . import models
 from .database import engine, SessionLocal
+from config import config
 
-environment = "dev"
-
-if environment != "prd":
-    app = FastAPI()
-else:
-    app = FastAPI(docs_url=None, redoc_url=None)
+app = FastAPI(**config)
 
 # Create table
 models.Base.metadata.create_all(engine)
@@ -48,3 +44,21 @@ async def add(response: Response, request: Product, db: Session = Depends(get_db
     db.refresh(new_product)
     response.status_code = status.HTTP_201_CREATED
     return new_product
+
+@app.delete("/product/{id}", tags=["product", "id"])
+async def delete_product_by_id(response: Response, id:int,  db: Session = Depends(get_db)):
+    db.query(models.Product).filter(models.Product.id == id).delete(synchronize_session=False)
+    db.commit()
+    response.status_code = status.HTTP_200_OK
+    return {"message": f"Product with id {id} delete"}
+
+@app.put("/product/{id}", tags=["product", "id"])
+async def update(response:Response, id:int, request:Product, db:Session = Depends(get_db)):
+    product = db.query(models.Product).filter(models.Product.id == id)
+    if not product.first():
+        response.status_code = status.HTTP_404_NOT_FOUND
+        return {"message": f"Product with id {id} not found"}
+    product.update(request.dict())
+    db.commit()
+    response.status_code = status.HTTP_200_OK
+    return request
