@@ -1,10 +1,10 @@
 from fastapi.testclient import TestClient
-from main import app
+from product.main import app
 
 client = TestClient(app)
 
 
 def test_read_main():
-    response = client.get("/")
+    response = client.get("/product")
     assert response.status_code == 200
-    assert response.json() == {"message": "in a bottle"}
+    assert response.json() == {"message": "Hello!"}

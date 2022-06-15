@@ -13,3 +13,7 @@ models.Base.metadata.create_all(engine)
 async def add(response: Response, product: Product):
     response.status_code = status.HTTP_201_CREATED
     return {"message": "Hello!"}
+
+@app.get("/product")
+async def add():
+    return {"message": "Hello!"}
