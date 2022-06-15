@@ -43,6 +43,12 @@ A basic course of FastAPI topics and knowledges
     - Creating a route to update products
     - Response Model
         - Product 
+        ```
+        ## Removed id product
+            # class DisplayProduct(Product):
+            #     class Config:
+            #         orm_mode = True
+        ```
         - BaseModel
         - Typing --> When you have a list of products and you need to sho only the basemodel or the Product model
     - HTTP status code
@@ -59,7 +65,7 @@ A basic course of FastAPI topics and knowledges
     - .update()
 
 ## Creating multiple models and establishing relationships
-
+    - Hashings password is important
 
 ## Authentication
 
@@ -76,3 +82,5 @@ A basic course of FastAPI topics and knowledges
     - pip install black
     - pip install python-multipart
     - pip install sqlalchemy
+    - pip install passlib
+    - pip install bcrypt

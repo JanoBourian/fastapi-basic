@@ -6,16 +6,21 @@ class Product(BaseModel):
     description: str
     price: float
 
-## Removed id product
-
-# class DisplayProduct(Product):
-#     class Config:
-#         orm_mode = True
-
 class DisplayProduct(BaseModel):
     name: str
     price: float
     
     class Config:
         orm_mode = True
+
+class Seller(BaseModel):
+    username:str
+    email:str
+    password:str
+
+class DisplaySeller(BaseModel):
+    name:str
+    email:str
     
+    class Config:
+        orm_mode = True
