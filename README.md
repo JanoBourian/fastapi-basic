@@ -58,6 +58,13 @@ A basic course of FastAPI topics and knowledges
     - .first()
     - .update()
 
+## Creating multiple models and establishing relationships
+
+
+## Authentication
+
+
+
 ## Generate requirements.txt
     - pip freeze >> requirements.txt
 
