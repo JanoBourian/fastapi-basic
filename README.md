@@ -36,6 +36,15 @@ A basic course of FastAPI topics and knowledges
     - Creating a model
     - Using Table Plus
 
+## Performing CRUD operations
+    - Adding Data To Database : Check this because is a little bit complex
+    - Fetching Products
+    - Deleting Products
+    - Creating a route to update products
+    - Response Model
+    - HTTP status code
+    - Raising Exceptions
+    
 ## Generate requirements.txt
     - pip freeze >> requirements.txt
 
