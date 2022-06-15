@@ -47,6 +47,7 @@ A basic course of FastAPI topics and knowledges
         - Typing --> When you have a list of products and you need to sho only the basemodel or the Product model
     - HTTP status code
     - Raising Exceptions
+        - Using HTTPException of fastapi
 
 ### Commands to manipulate databases
     - db.query().filter().first()
