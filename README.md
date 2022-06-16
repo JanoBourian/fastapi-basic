@@ -70,6 +70,10 @@ A basic course of FastAPI topics and knowledges
 ## Authentication
 
 
+## Steps no learned
+    - Initialize database
+    - Hashing pwd
+    - Routing
 
 ## Generate requirements.txt
     - pip freeze >> requirements.txt
@@ -78,6 +82,7 @@ A basic course of FastAPI topics and knowledges
     - pip install fastapi
     - pip install uvicorn
     - pip install requests
+    - pip install pydantic
     - pip install pytest
     - pip install black
     - pip install python-multipart

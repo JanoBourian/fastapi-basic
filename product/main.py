@@ -44,7 +44,7 @@ async def get_product_by_id(response: Response, id: int, db: Session = Depends(g
 @app.post("/product", tags=["product"])
 async def add(response: Response, request: Product, db: Session = Depends(get_db)):
     new_product = models.Product(
-        name=request.name, description=request.description, price=request.price
+        name=request.name, description=request.description, price=request.price, seller_id = request.seller_id
     )
     db.add(new_product)
     db.commit()
