@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class Seller(BaseModel):
@@ -31,7 +32,17 @@ class DisplayProduct(BaseModel):
     class Config:
         orm_mode = True
 
+
 class Login(BaseModel):
-    username:str
-    email:str
-    password:str
+    username: str
+    email: str
+    password: str
+
+
+class Token(BaseModel):
+    access_token: str
+    toke_type: str
+
+
+class TokenData(BaseModel):
+    username: Optional[str] = None

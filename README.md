@@ -102,3 +102,4 @@ A basic course of FastAPI topics and knowledges
     - pip install sqlalchemy
     - pip install passlib
     - pip install bcrypt
+    - pip install python-jose 
