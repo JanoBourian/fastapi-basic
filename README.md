@@ -68,12 +68,25 @@ A basic course of FastAPI topics and knowledges
     - Hashings password is important
 
 ## Authentication
+    - Log with the username and password
+    - JWT Token
+
+### Steps: 
+    - create a router and post method
+    - add router to main.py
+    - create a schema for the request (in the post method)
+    - Add necessary imports:
+        - get_db
+        - crypto
+        - get User model (or anything model that we required)
+    - 
 
 
 ## Steps no learned
     - Initialize database
     - Hashing pwd
     - Routing
+    - Authentication
 
 ## Generate requirements.txt
     - pip freeze >> requirements.txt

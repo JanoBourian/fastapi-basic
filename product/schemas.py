@@ -30,3 +30,8 @@ class DisplayProduct(BaseModel):
 
     class Config:
         orm_mode = True
+
+class Login(BaseModel):
+    username:str
+    email:str
+    password:str
