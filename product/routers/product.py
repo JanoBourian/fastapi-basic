@@ -4,7 +4,8 @@ from ..database import get_db
 from fastapi.params import Depends
 from typing import List
 from .. import models
-from ..schemas import Product, DisplayProduct
+from ..schemas import Product, DisplayProduct, Seller
+from .login import get_current_user
 
 router = APIRouter(tags=["product"], prefix="/product")
 
@@ -19,7 +20,12 @@ async def all_products(response: Response, db: Session = Depends(get_db)):
 
 
 @router.get("/{id}", response_model=DisplayProduct)
-async def get_product_by_id(response: Response, id: int, db: Session = Depends(get_db)):
+async def get_product_by_id(
+    response: Response,
+    id: int,
+    db: Session = Depends(get_db),
+    current_user: Seller = Depends(get_current_user),
+):
     response.status_code = status.HTTP_200_OK
     product = db.query(models.Product).filter(models.Product.id == id).first()
     if not product:
