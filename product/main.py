@@ -1,91 +1,14 @@
-from fastapi import FastAPI, Response, status, HTTPException
-from fastapi.params import Depends
-from sqlalchemy.orm import Session
-from .schemas import Product, DisplayProduct, Seller, DisplaySeller
-from . import models
-from .database import engine, SessionLocal
+from fastapi import FastAPI
 from config import config
-from typing import List
-from passlib.context import CryptContext
+from . import models
+from .database import engine
+from .routers import product, seller
 
 app = FastAPI(**config)
 
+# Router
+app.include_router(product.router)
+app.include_router(seller.router)
+
 # Create table
 models.Base.metadata.create_all(engine)
-
-# pwd crypto
-pwd_context = CryptContext(schemes = ["bcrypt"], deprecated = "auto")
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-## Product Endpoints
-
-@app.get("/product", tags=["product"], response_model = List[DisplayProduct])
-async def all_products(response: Response, db: Session = Depends(get_db)):
-    response.status_code = status.HTTP_200_OK
-    products = db.query(models.Product).all()
-    return products
-
-
-@app.get("/product/{id}", tags=["product", "id"], response_model = DisplayProduct)
-async def get_product_by_id(response: Response, id: int, db: Session = Depends(get_db)):
-    response.status_code = status.HTTP_200_OK
-    product = db.query(models.Product).filter(models.Product.id == id).first()
-    if not product:
-        raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = f"Product with id {id} not found")
-    return product
-
-
-@app.post("/product", tags=["product"])
-async def add(response: Response, request: Product, db: Session = Depends(get_db)):
-    new_product = models.Product(
-        name=request.name, description=request.description, price=request.price, seller_id = request.seller_id
-    )
-    db.add(new_product)
-    db.commit()
-    db.refresh(new_product)
-    response.status_code = status.HTTP_201_CREATED
-    return new_product
-
-
-@app.delete("/product/{id}", tags=["product", "id"])
-async def delete_product_by_id(
-    response: Response, id: int, db: Session = Depends(get_db)
-):
-    db.query(models.Product).filter(models.Product.id == id).delete(
-        synchronize_session=False
-    )
-    db.commit()
-    response.status_code = status.HTTP_200_OK
-    return {"message": f"Product with id {id} delete"}
-
-
-@app.put("/product/{id}", tags=["product", "id"])
-async def update(
-    response: Response, id: int, request: Product, db: Session = Depends(get_db)
-):
-    product = db.query(models.Product).filter(models.Product.id == id)
-    if not product.first():
-        response.status_code = status.HTTP_404_NOT_FOUND
-        return {"message": f"Product with id {id} not found"}
-    product.update(request.dict())
-    db.commit()
-    response.status_code = status.HTTP_200_OK
-    return request
-
-## Seller endpoints
-
-@app.post("/seller", tags=["seller"], response_model = DisplaySeller)
-async def create_seller(response:Response, request:Seller, db: Session = Depends(get_db)):
-    hash_pwd = pwd_context.hash(request.password)
-    response.status_code = status.HTTP_201_CREATED
-    new_seller = models.Seller(username = request.username, email = request.email, password = hash_pwd)
-    db.add(new_seller)
-    db.commit()
-    db.refresh(new_seller)
-    return new_seller
