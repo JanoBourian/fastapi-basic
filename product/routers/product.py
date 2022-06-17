@@ -11,14 +11,14 @@ router = APIRouter(tags=["product"], prefix="/product")
 ## Product Endpoints
 
 
-@router.get("/product", response_model=List[DisplayProduct])
+@router.get("/", response_model=List[DisplayProduct])
 async def all_products(response: Response, db: Session = Depends(get_db)):
     response.status_code = status.HTTP_200_OK
     products = db.query(models.Product).all()
     return products
 
 
-@router.get("/product/{id}", response_model=DisplayProduct)
+@router.get("/{id}", response_model=DisplayProduct)
 async def get_product_by_id(response: Response, id: int, db: Session = Depends(get_db)):
     response.status_code = status.HTTP_200_OK
     product = db.query(models.Product).filter(models.Product.id == id).first()
@@ -30,7 +30,7 @@ async def get_product_by_id(response: Response, id: int, db: Session = Depends(g
     return product
 
 
-@router.post("/product")
+@router.post("/")
 async def add(response: Response, request: Product, db: Session = Depends(get_db)):
     new_product = models.Product(
         name=request.name,
@@ -45,7 +45,7 @@ async def add(response: Response, request: Product, db: Session = Depends(get_db
     return new_product
 
 
-@router.delete("/product/{id}")
+@router.delete("/{id}")
 async def delete_product_by_id(
     response: Response, id: int, db: Session = Depends(get_db)
 ):
@@ -57,7 +57,7 @@ async def delete_product_by_id(
     return {"message": f"Product with id {id} delete"}
 
 
-@router.put("/product/{id}")
+@router.put("/{id}")
 async def update(
     response: Response, id: int, request: Product, db: Session = Depends(get_db)
 ):

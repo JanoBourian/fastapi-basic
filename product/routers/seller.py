@@ -14,7 +14,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 ## Seller endpoints
 
 
-@router.post("/seller", tags=["seller"], response_model=DisplaySeller)
+@router.post("/", tags=["seller"], response_model=DisplaySeller)
 async def create_seller(
     response: Response, request: Seller, db: Session = Depends(get_db)
 ):
